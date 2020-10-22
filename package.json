@@ -1,7 +1,7 @@
 {
-  "name": "quasar-tiptap",
-  "version": "1.7.0",
-  "description": "A modern WYSIWYG rich-text editor built on top of tiptap and Quasar for Vue.js",
+  "name": "quasar-tiptap-branch",
+  "version": "1.8.0",
+  "description": "Fork from quasar-tiptap, for upgrade dependencies (Quasar => 2.0+ ...)",
   "productName": "Quasar Tiptap",
   "scripts": {
     "lint": "eslint --ext .js,.vue src",
@@ -19,20 +19,21 @@
     "src/*"
   ],
   "dependencies": {
-    "@quasar/extras": "^1.0.0",
-    "axios": "^0.18.1",
-    "quasar": "^1.0.0",
-    "vue-i18n": "^8.0.0",
+    "@quasar/extras": "^1.9.9",
+    "axios": "^0.19.2",
+    "core-js": "^3.6.5",
+    "katex": "^0.11.1",
+    "mermaid": "^8.4.8",
+    "prosemirror-utils": "^0.9.6",
+    "quasar": "^1.14.1",
     "tiptap": "^1.29.1",
     "tiptap-extensions": "^1.31.1",
     "tiptap-utils": "^1.10.3",
-    "prosemirror-utils": "^0.9.6",
     "vue-codemirror": "^4.0.6",
-    "mermaid": "^8.4.8",
-    "katex": "^0.11.1"
+    "vue-i18n": "^8.0.0"
   },
   "devDependencies": {
-    "@quasar/app": "^1.0.0",
+    "@quasar/app": "^2.1.5",
     "@rollup/plugin-alias": "^3.1.0",
     "@rollup/plugin-commonjs": "^11.1.0",
     "@rollup/plugin-node-resolve": "^7.1.3",
@@ -73,20 +74,27 @@
     "yarn": ">= 1.21.1"
   },
   "browserslist": [
-    "last 1 version, not dead, ie >= 11"
+    "last 10 Chrome versions",
+    "last 10 Firefox versions",
+    "last 4 Edge versions",
+    "last 7 Safari versions",
+    "last 8 Android versions",
+    "last 8 ChromeAndroid versions",
+    "last 8 FirefoxAndroid versions",
+    "last 10 iOS versions",
+    "last 5 Opera versions"
   ],
   "resolutions": {
-    "@babel/parser": "7.7.5",
     "prosemirror-model": "1.9.1"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/donotebase/quasar-tiptap.git"
+    "url": "https://github.com/rdminfo/quasar-tiptap-branch.git"
   },
   "bugs": {
-    "url": "https://github.com/donotebase/quasar-tiptap/issues"
+    "url": "https://github.com/rdminfo/quasar-tiptap-branch/issues"
   },
-  "homepage": "https://github.com/donotebase/quasar-tiptap#readme",
+  "homepage": "https://github.com/rdminfo/quasar-tiptap-branch#readme",
   "keywords": [
     "editor",
     "wysiwyg",
@@ -98,9 +106,9 @@
     "donote"
   ],
   "author": {
-    "name": "Micle Bu",
-    "email": "mekery@qq.com",
-    "url": "https://www.donote.info"
+    "name": "rdminfo",
+    "email": "1107748938@qq.com",
+    "url": "https://www.rdminfo.com"
   },
   "license": "MIT",
   "gitHooks": {
