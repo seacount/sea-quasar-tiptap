@@ -1,56 +1,42 @@
-# quasar-tiptap
+# quasar-tiptap-branch
 
-A modern WYSIWYG rich-text editor built on top of [tiptap](https://github.com/scrumpy/tiptap) and [Quasar Framework](https://github.com/quasarframework) for Vue.js.
+Fork from [quasar-tiptap](https://github.com/donotebase/quasar-tiptap), for upgrade dependencies ([Quasar](https://github.com/quasarframework) => 2.0+ ...).
 
-[![](https://img.shields.io/npm/v/quasar-tiptap.svg?label=version)](https://www.npmjs.com/package/quasar-tiptap)
-[![Codacy Badge](https://api.codacy.com/project/badge/Grade/fe954819c420439485737e74aff30485)](https://www.codacy.com/gh/donotebase/quasar-tiptap?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=donotebase/quasar-tiptap&amp;utm_campaign=Badge_Grade)
-[![Build Status](https://travis-ci.org/donotebase/quasar-tiptap.svg?branch=dev)](https://travis-ci.org/donotebase/quasar-tiptap)
-[![](https://img.shields.io/npm/dependency-version/quasar-tiptap/peer/vue?color=vue)](https://www.npmjs.com/package/quasar-tiptap)
-[![semantic-release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg)](https://github.com/semantic-release/semantic-release)
-[![Join the chat at discord](https://img.shields.io/badge/chat-on%20discord-7289da.svg)](https://discord.gg/QAzbWuq)
-[![](https://img.shields.io/npm/l/quasar-tiptap.svg)](https://www.npmjs.com/package/quasar-tiptap)
+[![](https://img.shields.io/npm/v/quasar-tiptap-branch.svg?label=version)](https://www.npmjs.com/package/quasar-tiptap-branch)
+[![](https://img.shields.io/npm/l/quasar-tiptap-branch.svg)](https://www.npmjs.com/package/quasar-tiptap-branch)
 
-## Examples & Demos
+Dependencies
 
-- [Examples](https://github.com/donotebase/quasar-tiptap/tree/dev/src/pages/examples)
-- [Live Demo](https://donotebase.github.io/quasar-tiptap)
-- [Code Sandbox](https://codesandbox.io/s/quasar-tiptap-fytkc?file=/src/pages/Index.vue)
+[![](https://img.shields.io/npm/dependency-version/quasar-tiptap-branch/quasar)](https://www.npmjs.com/package/quasar-tiptap-branch)
+[![](https://img.shields.io/npm/dependency-version/quasar-tiptap-branch/dev/%40quasar%2Fapp)](https://www.npmjs.com/package/quasar-tiptap-branch)
+[![](https://img.shields.io/npm/dependency-version/quasar-tiptap-branch/%40quasar%2Fextras)](https://www.npmjs.com/package/quasar-tiptap-branch)
 
-## Features
 
-- Extensions: tiptap official extensions, and dozens of great extensions
-- Markdown
-- Diagram and LaTex Math formula
-- I18n support (`en-us`, `zh-hans`, `pl`, `pt-br`)
-- Fully extensible for editor extensions, menubar
-
-### I18n
-- `en-us` default
-- `zh-hans`
-- `pl` by @qyloxe
-- `pt-br` by @fal-pasa
+[![](https://img.shields.io/npm/dependency-version/quasar-tiptap-branch/tiptap)](https://www.npmjs.com/package/quasar-tiptap-branch)
 
 ## Installation
 
-### Dependencies
+###Dependencies
 
 quasar-tiptap is built on top of Quasar Framework and tiptap, therefore it should be used in Quasar App and depends on several packages.
 
-```bash
-# required
-yarn add tiptap
-yarn add tiptap-extensions
+### Install to your project
 
-# optional (required if diagram and latex formula enabled)
-yarn add vue-codemirror
-yarn add mermaid
-yarn add katex
-```
+`npm build`
 
-### quasar-tiptap
-```bash
-yarn add quasar-tiptap
-```
+`npm pack`
+
+`npm install [tgz path]/quasar-tiptap-branch.tgz --save`
+
+or
+
+`npm install quasar-tiptap-branch --save`
+
+### run locally
+
+`npm install`
+
+`quasar dev`
 
 ### quasar.conf.js
 
@@ -66,18 +52,17 @@ framework: [
 ]
 ```
 
-## Usage
-
-Register `quasar-tiptap` globally by installing plugin, or import `QuasarTiptap` component as needed.
-
 ### Install plugin
+
+create javascript file `src/boot/tiptap.js`
 
 ```vue
 import Vue from 'vue'
-import { QuasarTiptapPlugin, RecommendedExtensions } from 'quasar-tiptap'
+import { QuasarTiptapPlugin } from 'quasar-tiptap-branch'
+import { DEFAULT_LOCALE } from 'quasar-tiptap-branch/src/i18n'
 
 Vue.use(QuasarTiptapPlugin, {
-  language: 'zh-hans',
+  language: DEFAULT_LOCALE,
   spellcheck: true
 })
 ```
@@ -91,8 +76,9 @@ Vue.use(QuasarTiptapPlugin, {
 </template>
 
 <script>
-import { QuasarTiptap, RecommendedExtensions } from 'quasar-tiptap'
-import 'quasar-tiptap/lib/index.css'
+import { QuasarTiptap, RecommendedExtensions } from 'quasar-tiptap-branch'
+import { Placeholder } from 'tiptap-extensions'
+import 'quasar-tiptap-branch/lib/index.css'
 
 export default {
   data () {
@@ -101,10 +87,17 @@ export default {
         content: 'content',
         editable: true,
         extensions: [
-          ...RecommendedExtensions,
-          // other extenstions
-          // name string, or custom extension
-        ],
+            ...RecommendedExtensions,
+            new Placeholder({
+              showOnlyCurrent: false,
+              emptyNodeText: node => {
+                if (node.type.name === 'title') {
+                  return 'Title'
+                }
+                return 'Content'
+              }
+            })
+          ],
         toolbar: [
           'add-more',
           'separator',
@@ -128,129 +121,22 @@ export default {
       this.html = getHTML()
       console.log('html', this.html)
     }
-  },
-  mounted () {
-    // set language dynamically
-    this.$o.lang.set('en-us')
   }
 }
 </script>
 ```
 
-### Editor Properties
+## Editor Properties And Others
 
-| **Property** | **Type** | **Default** | **Description** |
-| --- | :---: | :---: | --- |
-| `content` | `Object\|String` | `null` | The editor content |
-| `editable` | `Boolean` | `true` | When set to `false` the editor is read-only. |
-| `extensions` | `Array` | `[]` | A list of extensions used, by the editor. This can be `String`, `Nodes`, `Marks` or `Plugins`. |
-| `toolbar` | `Array` | `[]` | A list of toolbar button used, by the editor. This can be `String`, Vue components |
-
-## Extensions
-
-### Available Extensions
-Extensions provided by tiptap official and quasar-tip:
-
-```js
-export const TipTapExtensions = [
-  'Bold',
-  'Italic',
-  'Strike',
-  'Underline',
-  'Code',
-  'CodeBlock',
-  'CodeBlockHighlight',
-  'BulletList',
-  'OrderedList',
-  'ListItem',
-  'TodoList',
-  'HorizontalRule',
-  'Table',
-  'Link',
-  'Image',
-]
-
-export const QuasarTipTapExtensions = [
-  'OTitle',
-  'ODoc',
-  'OParagraph',
-  'OBlockquote',
-  'OTodoItem',
-  'OHeading',
-  'OAlignment',
-  'OLineHeight',
-  'OForeColor',
-  'OBackColor',
-  'OFontFamily',
-  'OIframe',
-  'ODiagram',
-  'OKatexBlock',
-  'OKatexInline',
-  'OFormatClear',
-]
-
-export const RecommendedExtensions = [
-  ...TipTapExtensions,
-  ...QuasarTipTapExtensions
-]
-```
-
-#### extensions and toolbar in options
-
-|extension   |toolbar  |Remarks  |
-|:------|:------------|:--------|
-|'Bold' |'bold' | |
-|'Italic' |'italic' | |
-|'Strike' |'strike' | |
-|'Underline' |'underline' | |
-|'Code' |'code' | |
-|'CodeBlock' |'code_blok' | |
-|'CodeBlockHighlight' | | |
-|'BulletList' |'bullet_list' | |
-|'OrderedList' |'ordered_list' | |
-|'ListItem' | | |
-|'TodoList' |'todo_list' | |
-|'HorizontalRule' |'horizontal' | |
-|'Table' |'table' | |
-|'Link' | | |
-|'Image' |'photo' | |
-|'OTitle' | | |
-|'ODoc' | | |
-|'OParagraph' | | |
-|'OBlockquote' |'blockquote' | |
-|'OTodoItem' | | |
-|'OHeading' |'heading' | |
-|'OIndent' |'indent', 'outdent' | |
-|'OAlignment' |'align-dropdown', 'align-group' | |
-|'OLineHeight' |'line-height' | |
-|'OForeColor' |'fore-color' | |
-|'OBackColor' |'back-color' | |
-|'OFontFamily' |'font-family' | |
-|'OIframe' | |'add-more' |
-|'ODiagram' | |'add-more' |
-|'OKatexBlock' | |'add-more' |
-|'OKatexInline' | |'add-more' |
-|'OFormatClear' |'format_clear' | |
-
-## 🏗 Contributing ![PR or ISSUE](https://img.shields.io/badge/PR%20or%20ISSUE-welcome-brightgreen)
-
-1. 🍴Fork it
-2. 🔀Create your branch: `git checkout -b your-branch`
-3. 🎨Make your changes
-4. 📝Commit your changes with [Semantic Commit Messages (recommended)](https://gist.github.com/joshbuchea/6f47e86d2510bce28f8e7f42ae84c716)
-5. 🚀Push to the branch: `git push origin your-branch`
-6. 🎉Submit a PR to `dev` branch
-
-## Roadmap
-
-A todo list will be shown in [QuasarTiptap Project](https://github.com/donotebase/quasar-tiptap/projects/1) kanban.
+The other details please see [quasar-tiptap](https://github.com/donotebase/quasar-tiptap)
 
 ## Thanks
 
 - Authors of [Quasar Framework](https://github.com/quasarframework)
 - Authors of [tiptap](https://github.com/scrumpy/tiptap)
+- Authors of [quasar-tiptap](https://github.com/donotebase/quasar-tiptap)
 - Leecason for [element-tiptap](https://github.com/Leecason/element-tiptap)
 
 ## License
 
-The MIT License (MIT). Please see [License File](https://github.com/donotebase/quasar-tiptap/blob/master/LICENSE) for more information.
+The MIT License (MIT). Please see [License File](https://github.com/rdminfo/quasar-tiptap-branch/blob/dev/README.md) for more information.

@@ -92,8 +92,8 @@ module.exports = function (ctx) {
 
       // rtl: false, // https://quasar.dev/options/rtl-support
       // showProgress: false,
-      // gzip: true,
-      // analyze: true,
+      gzip: true,
+      analyze: false,
 
       // Options below are automatically set depending on the env, set them if you want to override
       // preloadChunks: false,
@@ -184,7 +184,7 @@ module.exports = function (ctx) {
 
     // Full list of options: https://quasar.dev/quasar-cli/developing-electron-apps/configuring-electron
     electron: {
-      bundler: 'packager', // 'packager' or 'builder'
+      // bundler: 'packager', // 'packager' or 'builder'
 
       packager: {
         // https://github.com/electron-userland/electron-packager/blob/master/docs/api.md#options

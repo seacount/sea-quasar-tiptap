@@ -104,9 +104,13 @@ function getConfig ({
           [
             '@babel/preset-env',
             {
-              modules: false,
               useBuiltIns: 'usage',
-              corejs: 2,
+              corejs: {
+                version: '3.6.5',
+                proposals: true
+              },
+              targets: 'defaults',
+              debug: false
             },
           ],
         ],
