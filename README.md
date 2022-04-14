@@ -1,4 +1,4 @@
-# quasar-tiptap-branch
+# sea-quasar-tiptap
 
 Fork from [quasar-tiptap](https://github.com/donotebase/quasar-tiptap), for upgrade dependencies ([Quasar](https://github.com/quasarframework) => 2.0+ ...).
 
@@ -30,7 +30,7 @@ quasar-tiptap is built on top of Quasar Framework and tiptap, therefore it shoul
 
 or
 
-`npm install quasar-tiptap-branch --save`
+`npm install sea-quasar-tiptap --save`
 
 ### run locally
 
@@ -58,8 +58,8 @@ create javascript file `src/boot/tiptap.js`
 
 ```vue
 import Vue from 'vue'
-import { QuasarTiptapPlugin } from 'quasar-tiptap-branch'
-import { DEFAULT_LOCALE } from 'quasar-tiptap-branch/src/i18n'
+import { QuasarTiptapPlugin } from 'sea-quasar-tiptap'
+import { DEFAULT_LOCALE } from 'sea-quasar-tiptap/src/i18n'
 
 Vue.use(QuasarTiptapPlugin, {
   language: DEFAULT_LOCALE,

@@ -1,6 +1,6 @@
 {
-  "name": "quasar-tiptap-branch",
-  "version": "1.8.1",
+  "name": "sea-quasar-tiptap",
+  "version": "1.0.0",
   "description": "Fork from quasar-tiptap, for upgrade dependencies (Quasar => 2.0+ ...)",
   "productName": "Quasar Tiptap",
   "scripts": {
